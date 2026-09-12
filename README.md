@@ -39,10 +39,12 @@ npm run ci
 
 ## GitHub Pages
 This repo includes:
-- `ci.yml` to lint, test, build, and verify the generated static assets
-- `deploy-pages.yml` to publish `dist/` to GitHub Pages from `main`
+- `ci.yml` to lint, test, build, and verify the generated static assets on pushes and pull requests
+- `deploy-pages.yml` to publish `dist/` to GitHub Pages with a manual workflow dispatch
 
 The Vite config uses a relative asset base so the built site works correctly on GitHub Pages project URLs.
+
+At the moment, the repository is intentionally private for review. GitHub rejected Pages activation on the current private-repo plan, so the deploy workflow is staged and ready, but actual Pages publishing should be turned on after you give the go-ahead to make the repo public.
 
 ## Source reference
 The analyzer logic and expected behavior were derived from the original `serial-analyzer` Python codebase, especially:
