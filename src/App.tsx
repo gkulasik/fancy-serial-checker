@@ -43,8 +43,13 @@ function App() {
         <p className="eyebrow">browser-based serial checker</p>
         <h1>Fancy serial checker</h1>
         <p className="hero-copy">
-          Paste a serial number, click Analyze, and get a clean read on whether it has
-          any fancy properties.
+          <span className="hero-copy-desktop">
+            Paste a serial number, click Analyze, and get a clean read on whether it
+            has any fancy properties.
+          </span>
+          <span className="hero-copy-mobile">
+            Enter a serial number and run a quick fancy-serial check.
+          </span>
         </p>
 
         <form className="search-form" onSubmit={handleSubmit}>
@@ -66,23 +71,38 @@ function App() {
         </form>
 
         <p className="helper-text">
-          Formats: <code>12345678</code> · <code>A12345678</code> ·{' '}
-          <code>12345678B</code> · <code>A12345678B</code>
+          <span className="helper-text-desktop">
+            Formats: <code>12345678</code> · <code>A12345678</code> ·{' '}
+            <code>12345678B</code> · <code>A12345678B</code>
+          </span>
+          <span className="helper-text-mobile">
+            Use 8 digits, with an optional letter before or after.
+          </span>
         </p>
 
         <div className="example-row" aria-label="Example serial numbers">
-          <span>Examples:</span>
-          {exampleSerials.map((example) => (
-            <button
-              key={example.serial}
-              type="button"
-              className="example-link"
-              onClick={() => setQuery(example.serial)}
-              title={example.hint}
-            >
-              {example.serial}
-            </button>
-          ))}
+          <span className="example-heading">
+            <span className="example-heading-desktop">Examples:</span>
+            <span className="example-heading-mobile">Try one:</span>
+          </span>
+          <div className="example-list">
+            {exampleSerials.map((example) => (
+              <button
+                key={example.serial}
+                type="button"
+                className="example-link"
+                onClick={() => setQuery(example.serial)}
+                title={example.hint}
+                aria-label={`${example.label}: ${example.serial}. ${example.hint}`}
+              >
+                <span className="example-link-desktop">{example.serial}</span>
+                <span className="example-link-mobile">
+                  <span className="example-link-label">{example.label}</span>
+                  <span className="example-link-serial">{example.serial}</span>
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
