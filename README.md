@@ -4,6 +4,8 @@ I originally built a serial analyzer as a pet project for identifying interestin
 
 Rather than let that work die inside a larger dead-end automation idea, I pulled the rules I wrote for the analyzer into this small frontend utility. It gives me a quick way to paste in a serial number and check whether it matches any of the patterns I cared about.
 
+![Fancy Serial Checker main page UI](assets/readme/main-ui.png)
+
 ## What it checks
 
 - low serials
