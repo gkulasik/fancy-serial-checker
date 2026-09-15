@@ -1,56 +1,61 @@
-# Fancy Serial UI
+# Fancy serial checker
 
-A small browser-based serial-number checker for spotting fancy note patterns.
+I originally built a serial analyzer as a pet project for identifying interesting banknote serial numbers and seeing how far I could automate the hunt. The rule set worked, but the bigger logistics problem never really did. Truly fancy serials are rare enough that the operational side of sourcing, sorting, and reviewing notes just does not make much sense at scale.
 
-## What it does
-- accepts the supported serial formats: `12345678`, `A12345678`, `12345678B`, and `A12345678B`
-- ports the core Python analyzer rules into TypeScript
-- shows the **primary verdict** using the analyzer priority order from the original service
-- also shows **all matching fancy types** so overlapping patterns stay visible
-- is ready for GitHub Pages deployment via Actions
+Rather than let that work die inside a larger dead-end automation idea, I pulled the rules I wrote for the analyzer into this small frontend utility. It gives me a quick way to paste in a serial number and check whether it matches any of the patterns I cared about.
+
+## What it checks
+
+- low serials
+- high serials
+- solids
+- ladders and broken ladders
+- radars and super radars
+- flippers
+- binary notes
+- repeaters
+- quad doubles
+- six of a kind
+- seven of a kind
+- date notes
 
 ## Local development
+
 ```bash
 npm install
 npm run dev
 ```
 
-Default local URL:
-- `http://127.0.0.1:4173`
+The local dev server runs on port `4173`.
 
 ## Tests
+
 ```bash
 npm run test:run
 ```
 
-The unit tests intentionally mirror representative cases from the original Python analyzer tests, with extra checks around analyzer priority and format validation.
+The tests mirror representative cases from the original Python analyzer tests, especially around ladder detection, format handling, and analyzer priority.
 
 ## Build
+
 ```bash
 npm run build
 npm run verify:dist
 ```
 
-Or run the full local CI sequence:
+If I want the full local CI pass:
 
 ```bash
 npm run ci
 ```
 
 ## GitHub Pages
-This repo includes:
-- `ci.yml` to lint, test, build, and verify the generated static assets on pushes and pull requests
-- `deploy-pages.yml` to publish `dist/` to GitHub Pages with a manual workflow dispatch
 
-The Vite config uses a relative asset base so the built site works correctly on GitHub Pages project URLs.
-
-At the moment, the repository is intentionally private for review. GitHub rejected Pages activation on the current private-repo plan, so the deploy workflow is staged and ready, but actual Pages publishing should be turned on after you give the go-ahead to make the repo public.
-
-## Source reference
-The analyzer logic and expected behavior were derived from the original `serial-analyzer` Python codebase, especially:
-- `service/serial_analyzer_service.py`
-- the analyzer tests under `analyzers/*_test.py`
+- `ci.yml` runs install, lint, tests, build, and static asset verification
+- `deploy-pages.yml` publishes the built `dist/` directory with GitHub Actions
+- `vite.config.ts` uses `base: './'` so assets resolve correctly on GitHub Pages project URLs
 
 ## Notes
-- There is no backend; all analysis runs in the browser.
-- Keeping `"private": true` in `package.json` prevents accidental npm publishing even if the GitHub repo later becomes public.
+
+- Everything runs in the browser. There is no backend.
+- The core detection logic was ported from my original Python serial analyzer into TypeScript.
